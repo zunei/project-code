@@ -179,8 +179,8 @@ class LocalUpdate_with_mask(object):
     #
     #
     #     print("------------------ Extra epoch ------------------")
-    #     # 用badnet的方法进行巩固
-    #     ratio=0.3  # 毒化率
+    #     # 
+    #     ratio=0.3 
     #     trigger = pattern_nc.cuda().detach()
     #     mask = mask_nc.cuda().detach()
     #self.args.local_ep)
@@ -214,10 +214,7 @@ class LocalUpdate_with_mask(object):
     #             f.write("[client] acc:{}\n [client] asr:{}\n".format(acc,asr))
     #     torch.save(model.state_dict(), 'saved/mytest_wudu'+str(args.dataset)+'_ttt.pkl')
     #
-    #     # # # # 加载权重文件
-    #     # # #
-    #     # # #
-    #     # # # # 加载权重到模型中
+   
     #     canshu=torch.load('saved/mytest_wudu'+str(args.dataset)+'_ttt.pkl')
     #     s_canshu=torch.load('saved/shadow'+str(args.dataset)+'_model.pkl')
         mask = torch.load(
@@ -239,7 +236,7 @@ class LocalUpdate_with_mask(object):
     #
     #     print("ASR"+str(asr))
         acc , test_loss = test ( model , test_loader )
-    #     ##自编
+    #     
     #     print("model_clean")
     #     model.train()
     #     mymodel=model_clean(args=args,model=model)
@@ -248,7 +245,7 @@ class LocalUpdate_with_mask(object):
 
         return model.state_dict(), np.array(local_acc_list)
     
-   #-------------自己编的
+   #------------
 class myDataset(Dataset):
     def __init__(self, data, targets):
         self.data = data
@@ -283,7 +280,7 @@ class model_clean():
         # clean_data = myDataset ( new_data , new_targets )
         # print(leng)
         from torch.utils.data import SubsetRandomSampler
-        # 随机选择索引
+   
         indices = torch.randperm(len(dataset), dtype=torch.long)[:len((dataset))]
         sampler = SubsetRandomSampler(indices)
         # shadow_model = CNNMnist().cuda()
@@ -292,7 +289,7 @@ class model_clean():
         # shadow_model = CNNCifar().cuda()
         optimizer_s=torch.optim.SGD ( shadow_model.parameters () , lr=args.lr , momentum=0.9 )
 
-        # 创建一个DataLoader，它只会加载这1000张图片  
+        
         p_data = torch.utils.data.DataLoader(dataset, batch_size=64, sampler=sampler)  
         data=torch.utils.data.DataLoader( dataset , batch_size=64 , shuffle=False )
         optimizer= torch.optim.SGD ( model.parameters () , lr=args.lr , momentum=0.9 )
@@ -341,7 +338,7 @@ class model_clean():
 #                 outputs_for_distillation = model ( image ) / temperature
 #                 distillation_loss = F.kl_div ( F.log_softmax ( outputs_for_distillation , dim=1 ) ,
 #                                                soft_targets , reduction='batchmean' ) * (temperature ** 2)
-                # 总损失
+              
                 # loss =  loss_2+loss_s1
                 loss = alpha * loss_c + (1 - alpha) * loss_2+loss_new+chaocan*loss_kd
                 # loss = alpha * loss_c + (1 - alpha) * loss_2
