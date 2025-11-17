@@ -430,7 +430,7 @@ def args_parser():
     parser.add_argument('--oh', default=0, type=float, help='scaling factor for one hot loss (cross entropy)')
     parser.add_argument('--act', default=0, type=float, help='scaling factor for activation loss used in DAFL')
     parser.add_argument('--save_dir', default='run/synthesis', type=str)
-    parser.add_argument('--partition', default='dirichlet', type=str)
+    parser.add_argument('--partition', default='', type=str)
     parser.add_argument('--beta_partition', default=0.5, type=float,
                         help=' If beta is set to a smaller value, '
                              'then the partition is more unbalanced')
@@ -446,7 +446,7 @@ def args_parser():
     parser.add_argument('--target_label_backdoor',default=0,type=int,help='target label for poison ')
 
     # Basic
-    parser.add_argument('--lr_g', default=1e-3, type=float,
+    parser.add_argument('--lr_g', default=, type=float,
                         help='initial learning rate for generation')
     parser.add_argument('--T', default=7, type=float)
     parser.add_argument('--g_steps', default=20, type=int, metavar='N',
